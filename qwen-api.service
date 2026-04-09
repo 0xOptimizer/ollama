@@ -5,10 +5,10 @@ Wants=ollama.service
 
 [Service]
 Type=simple
-User=qwen
-Group=qwen
-WorkingDirectory=/opt/qwen-api
-ExecStart=/opt/qwen-api/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 --workers 1 --loop asyncio
+User=semo_db_user
+Group=semo_db_user
+WorkingDirectory=/mnt/storage/qwen-api
+ExecStart=/mnt/storage/qwen-api/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 --workers 1 --loop asyncio
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal
