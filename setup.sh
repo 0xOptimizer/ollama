@@ -48,6 +48,16 @@ fi
 systemctl enable ollama
 systemctl start ollama
 
+mkdir -p /mnt/storage/ollama-models
+chown ollama:ollama /mnt/storage/ollama-models
+mkdir -p /etc/systemd/system/ollama.service.d
+cat > /etc/systemd/system/ollama.service.d/override.conf <<EOF
+[Service]
+Environment="OLLAMA_MODELS=/mnt/storage/ollama-models"
+EOF
+systemctl daemon-reload
+systemctl restart ollama
+
 for i in $(seq 1 15); do
     if curl -sf http://127.0.0.1:11434/api/tags &>/dev/null; then
         break
